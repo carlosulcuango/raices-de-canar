@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Compass, UtensilsCrossed, CalendarDays, Sparkles, BookOpen, Map, ArrowRight } from 'lucide-react';
+import { ShieldAlert, Compass, UtensilsCrossed, CalendarDays, BookOpen, Map, ArrowRight } from 'lucide-react';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -17,11 +17,10 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-12 p-6 sm:p-12 md:p-24">
-          {/* Top cultural tag */}
-          <div className="inline-flex items-center space-x-2 bg-black/40 border border-paper/10 text-paper px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest backdrop-blur-sm animate-pulse">
-            <Sparkles className="h-3.5 w-3.5 text-ochre-light" />
-            <span>Documental Interactivo Patrimonio de Cañar</span>
-          </div>
+          {/* Top cultural tag / Subtitle */}
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold uppercase tracking-widest text-paper-light leading-relaxed max-w-2xl mx-auto">
+            Documental Interactivo Patrimonio de Cañar
+          </h2>
 
           {/* Fluid title main text */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif tracking-tight text-paper leading-[1.1] text-balance">
@@ -48,7 +47,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs text-paper/85 uppercase tracking-widest animate-bounce">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs text-paper/85 uppercase tracking-widest animate-bounce mt-6 sm:mt-12">
           <span className="mb-2">Descubrir</span>
           <div className="w-1 h-8 bg-terracotta/80 rounded" />
         </div>
