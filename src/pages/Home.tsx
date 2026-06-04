@@ -11,20 +11,25 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       {/* Editorial Hero Section */}
       <section
         style={{ backgroundImage: "url('/images/inicio.jpg')" }}
-        className="bg-cover bg-center bg-no-repeat h-[92vh] min-h-[600px] relative flex flex-col items-center justify-center border-b border-earth-light/25"
+        className="bg-cover bg-center bg-no-repeat min-h-screen md:min-h-[600px] h-screen md:h-[92vh] relative flex flex-col items-center justify-center border-b border-earth-light/25"
       >
         {/* Subtle overlay for image clarity and button legibility */}
         <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-12">
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-12 p-6 sm:p-12 md:p-24">
           {/* Top cultural tag */}
           <div className="inline-flex items-center space-x-2 bg-black/40 border border-paper/10 text-paper px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest backdrop-blur-sm animate-pulse">
             <Sparkles className="h-3.5 w-3.5 text-ochre-light" />
             <span>Documental Interactivo Patrimonio de Cañar</span>
           </div>
 
-          {/* Action buttons (removed <h1> and <p> since title is integrated in the image) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-16">
+          {/* Fluid title main text */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif tracking-tight text-paper leading-[1.1] text-balance">
+            Raíces de Cañar
+          </h1>
+
+          {/* Action buttons with responsive width */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button
               onClick={() => onNavigate('/pueblos-nacionalidades')}
               className="w-full sm:w-auto px-8 py-3 bg-terracotta hover:bg-terracotta-dark text-paper font-semibold rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
