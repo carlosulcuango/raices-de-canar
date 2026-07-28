@@ -198,15 +198,6 @@ export const GASTRONOMY_DATA: Dish[] = [
     ingredients: ['Cuero de cerdo entero', 'Paja de páramo (para chamuscar)', 'Mote blanco', 'Sal en grano', 'Ají de piedra'],
     tradition: 'Patrimonio gastronómico de la provincia. La técnica del chamuscado con soplete y paja le otorga un sabor ahumado único que atrae a viajeros de todo el país.',
     imageUrl: '/images/cascaritas.jpg'
-  },
-  {
-    id: 'cascaron',
-    name: 'El Cascarón',
-    origin: 'Tradición mestiza de Azogues',
-    description: 'Bebida o postre caliente preparado a base de huevos batidos con aguardiente de caña (puntas), canela y almíbar, servido en vasijas tradicionales.',
-    ingredients: ['Yemas de huevo frescas', 'Aguardiente artesanal (puntas)', 'Canela en rama', 'Almíbar de panela o azúcar'],
-    tradition: 'Consumido tradicionalmente en las noches frías de festividades religiosas y patronales para brindar calor y energía a los devotos y danzantes.',
-    imageUrl: '/images/cascaron.jpg'
   }
 ];
 
