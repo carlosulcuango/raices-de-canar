@@ -81,7 +81,6 @@ const TERRITORY_DATA: ProvinceTerritory[] = [
 export const Pueblos: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cosmovision' | 'indumentaria' | 'saberes'>('cosmovision');
   const [selectedClothing, setSelectedClothing] = useState<string>('sombrero');
-  const [activeProvinceFilter, setActiveProvinceFilter] = useState<'all' | 'canar-prov' | 'azuay-prov'>('all');
 
   const clothingDetails: Record<string, { title: string; desc: string; symbol: string }> = {
     sombrero: {
@@ -110,10 +109,6 @@ export const Pueblos: React.FC = () => {
       symbol: 'Vínculo colonial y prehispánico, denota elegancia, linaje familiar y riqueza material.'
     }
   };
-
-  const filteredProvinces = activeProvinceFilter === 'all'
-    ? TERRITORY_DATA
-    : TERRITORY_DATA.filter(p => p.id === activeProvinceFilter);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 animate-fade-in space-y-16">
@@ -308,7 +303,7 @@ export const Pueblos: React.FC = () => {
         </div>
       </div>
 
-      {/* NEW SECTION: Distribución Territorial del Pueblo Kañari */}
+      {/* SECTION: Distribución Territorial del Pueblo Kañari */}
       <section className="bg-paper border border-earth-light/35 rounded-2xl p-6 sm:p-8 md:p-12 shadow-md space-y-8">
         {/* Section Header */}
         <div className="space-y-4 max-w-3xl">
@@ -325,43 +320,17 @@ export const Pueblos: React.FC = () => {
           </p>
         </div>
 
-        {/* Responsive Filter Buttons */}
-        <div className="flex flex-wrap items-center gap-2 border-b border-earth-light/20 pb-4">
-          <button
-            onClick={() => setActiveProvinceFilter('all')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-              activeProvinceFilter === 'all'
-                ? 'bg-terracotta text-paper shadow-sm'
-                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
-            }`}
-          >
-            Todas las Provincias (Cañar & Azuay)
-          </button>
-          <button
-            onClick={() => setActiveProvinceFilter('canar-prov')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-              activeProvinceFilter === 'canar-prov'
-                ? 'bg-terracotta text-paper shadow-sm'
-                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
-            }`}
-          >
-            Provincia del Cañar
-          </button>
-          <button
-            onClick={() => setActiveProvinceFilter('azuay-prov')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-              activeProvinceFilter === 'azuay-prov'
-                ? 'bg-terracotta text-paper shadow-sm'
-                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
-            }`}
-          >
-            Provincia del Azuay
-          </button>
+        {/* Informative Centered Badge */}
+        <div className="flex justify-center border-b border-earth-light/20 pb-4">
+          <div className="inline-flex items-center space-x-2.5 px-5 py-2.5 rounded-xl bg-terracotta/10 border border-terracotta/30 text-terracotta text-xs md:text-sm font-bold uppercase tracking-wider shadow-2xs">
+            <MapPin className="h-4 w-4 text-terracotta" />
+            <span>Provincias del Cañar y Azuay</span>
+          </div>
         </div>
 
-        {/* 2-Column Responsive Grid of Provinces */}
-        <div className={`grid grid-cols-1 ${activeProvinceFilter === 'all' ? 'lg:grid-cols-2' : 'grid-cols-1'} gap-8`}>
-          {filteredProvinces.map((prov) => (
+        {/* Fixed 2 Parallel Columns Grid (Cañar on left, Azuay on right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {TERRITORY_DATA.map((prov) => (
             <div
               key={prov.id}
               className="bg-paper-dark border border-earth-light/40 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
