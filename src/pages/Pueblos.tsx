@@ -1,9 +1,87 @@
 import React, { useState } from 'react';
-import { Compass, Sparkles, BookOpen, Fingerprint } from 'lucide-react';
+import { Compass, Sparkles, BookOpen, Fingerprint, MapPin, Building2, Map } from 'lucide-react';
+
+interface ParroquiaItem {
+  canton: string;
+  parroquias: string[];
+}
+
+interface ProvinceTerritory {
+  id: string;
+  province: string;
+  description: string;
+  cantons: ParroquiaItem[];
+}
+
+const TERRITORY_DATA: ProvinceTerritory[] = [
+  {
+    id: 'canar-prov',
+    province: 'Provincia del Cañar',
+    description: 'Núcleo central del territorio ancestral y político del Pueblo Kichwa Kañari, cuna de los sitios sagrados e históricos más emblemáticos.',
+    cantons: [
+      {
+        canton: 'Cañar',
+        parroquias: ['Cañar', 'Chontamarca', 'Chorocopte', 'General Morales', 'Gualleturo', 'Honorato Vásquez', 'Ingapirca', 'Juncal', 'San Antonio', 'Zhud']
+      },
+      {
+        canton: 'Azogues',
+        parroquias: ['Pindilig', 'Rivera', 'Taday']
+      },
+      {
+        canton: 'Biblián',
+        parroquias: ['Biblián', 'Nazón', 'San Francisco de Sageo', 'Turupamba']
+      },
+      {
+        canton: 'El Tambo',
+        parroquias: ['El Tambo']
+      },
+      {
+        canton: 'Déleg',
+        parroquias: ['Déleg']
+      },
+      {
+        canton: 'Suscal',
+        parroquias: ['Suscal']
+      }
+    ]
+  },
+  {
+    id: 'azuay-prov',
+    province: 'Provincia del Azuay',
+    description: 'Territorio de expansión histórica e integración del Pueblo Kañari, con presencia activa en valles y cuencas hidrográficas del sur andino.',
+    cantons: [
+      {
+        canton: 'Cuenca',
+        parroquias: ['Baños', 'Molleturo', 'Octavio Cordero', 'Quingeo', 'Sta. Ana', 'Sidcay', 'Tarqui', 'Turi', 'El Valle']
+      },
+      {
+        canton: 'Gualaceo',
+        parroquias: ['Gualaceo', 'Jadán', 'San Juan', 'Zhidmad']
+      },
+      {
+        canton: 'Nabón',
+        parroquias: ['Nabón', 'El Progreso']
+      },
+      {
+        canton: 'Santa Isabel',
+        parroquias: ['Sta. Isabel']
+      },
+      {
+        canton: 'Sigsig',
+        parroquias: ['Gima', 'Ludo']
+      },
+      {
+        canton: 'Oña',
+        parroquias: ['Susudel']
+      }
+    ]
+  }
+];
 
 export const Pueblos: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cosmovision' | 'indumentaria' | 'saberes'>('cosmovision');
   const [selectedClothing, setSelectedClothing] = useState<string>('sombrero');
+  const [activeProvinceFilter, setActiveProvinceFilter] = useState<'all' | 'canar-prov' | 'azuay-prov'>('all');
 
   const clothingDetails: Record<string, { title: string; desc: string; symbol: string }> = {
     sombrero: {
@@ -33,10 +111,14 @@ export const Pueblos: React.FC = () => {
     }
   };
 
+  const filteredProvinces = activeProvinceFilter === 'all'
+    ? TERRITORY_DATA
+    : TERRITORY_DATA.filter(p => p.id === activeProvinceFilter);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 animate-fade-in">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 animate-fade-in space-y-16">
       {/* Intro Header */}
-      <div className="space-y-6 max-w-3xl mb-12">
+      <div className="space-y-6 max-w-3xl">
         <div className="inline-flex items-center space-x-2 text-terracotta bg-terracotta/5 border border-terracotta/10 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
           <Fingerprint className="h-3.5 w-3.5" />
           <span>Nacionalidad Originaria</span>
@@ -51,178 +133,299 @@ export const Pueblos: React.FC = () => {
       </div>
 
       {/* Tabs Switcher Navigation */}
-      <div className="border-b border-earth-light/25 mb-8 flex overflow-x-auto space-x-2">
-        <button
-          onClick={() => setActiveTab('cosmovision')}
-          className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
-            activeTab === 'cosmovision'
-              ? 'border-terracotta text-terracotta'
-              : 'border-transparent text-earth hover:text-ink'
-          }`}
-        >
-          <Compass className="h-4 w-4" />
-          <span>Cosmovisión y Origen</span>
-        </button>
-        <button
-          onClick={() => setActiveTab('indumentaria')}
-          className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
-            activeTab === 'indumentaria'
-              ? 'border-terracotta text-terracotta'
-              : 'border-transparent text-earth hover:text-ink'
-          }`}
-        >
-          <Sparkles className="h-4 w-4" />
-          <span>Indumentaria Tradicional</span>
-        </button>
-        <button
-          onClick={() => setActiveTab('saberes')}
-          className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
-            activeTab === 'saberes'
-              ? 'border-terracotta text-terracotta'
-              : 'border-transparent text-earth hover:text-ink'
-          }`}
-        >
-          <BookOpen className="h-4 w-4" />
-          <span>Saberes y Prácticas</span>
-        </button>
-      </div>
+      <div>
+        <div className="border-b border-earth-light/25 mb-8 flex overflow-x-auto space-x-2">
+          <button
+            onClick={() => setActiveTab('cosmovision')}
+            className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
+              activeTab === 'cosmovision'
+                ? 'border-terracotta text-terracotta'
+                : 'border-transparent text-earth hover:text-ink'
+            }`}
+          >
+            <Compass className="h-4 w-4" />
+            <span>Cosmovisión y Origen</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('indumentaria')}
+            className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
+              activeTab === 'indumentaria'
+                ? 'border-terracotta text-terracotta'
+                : 'border-transparent text-earth hover:text-ink'
+            }`}
+          >
+            <Sparkles className="h-4 w-4" />
+            <span>Indumentaria Tradicional</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('saberes')}
+            className={`pb-4 px-4 font-serif text-base font-bold whitespace-nowrap transition-all duration-200 border-b-2 uppercase tracking-wide flex items-center space-x-2 ${
+              activeTab === 'saberes'
+                ? 'border-terracotta text-terracotta'
+                : 'border-transparent text-earth hover:text-ink'
+            }`}
+          >
+            <BookOpen className="h-4 w-4" />
+            <span>Saberes y Prácticas</span>
+          </button>
+        </div>
 
-      {/* Tab Panels Content */}
-      <div className="bg-paper-dark border border-earth-light/30 rounded p-6 md:p-10 shadow-sm min-h-[400px]">
-        {/* Tab 1: Cosmovision */}
-        {activeTab === 'cosmovision' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-6">
-              <h2 className="text-2xl md:text-3xl font-bold font-serif text-ink">
-                El Culto Lunar y la Serpiente Leoquina
-              </h2>
-              <div className="w-16 h-0.5 bg-ochre" />
-              <p className="text-sm md:text-base text-ink-light leading-relaxed">
-                Antes de la hegemonía incaica, el universo mitológico Kañari giraba en torno a la divinidad de la <strong>Luna (Killa)</strong> y al elemento primordial del <strong>agua</strong>. A diferencia del sol (deidad de fuego y orden expansivo), la luna regía sus ciclos agrícolas, la maduración de las semillas y la sabiduría curativa femenina.
-              </p>
-              <p className="text-sm md:text-base text-ink-light leading-relaxed">
-                Su geografía sagrada está salpicada de cumbres como el cerro Narrío y lagunas sagradas de páramo como <strong>Culebrillas</strong>. La laguna de Culebrillas es venerada como el lecho creador de la gran Serpiente <i>Leoquina</i>, madre biológica del linaje. La topografía montañosa y sinuosa del territorio era entendida por los sabios andinos como el cuerpo ondulante de esta serpiente cósmica.
-              </p>
-              <div className="p-4 bg-paper rounded border border-earth-light/40 flex items-center space-x-3 text-xs text-earth-dark">
-                <Compass className="h-6 w-6 text-terracotta flex-shrink-0" />
-                <span>
-                  <strong>Dato Arqueológico:</strong> En las orillas de la laguna de Culebrillas se han hallado cimientos ceremoniales de piedra de manufactura mixta Kañari e Inca, confirmando su rol de oráculo de peregrinación precolombino.
-                </span>
-              </div>
-            </div>
-
-            {/* Graphic Illustration representation */}
-            <div className="flex justify-center">
-              <div className="bg-gradient-to-br from-ochre-light/20 to-terracotta/10 border-2 border-dashed border-earth-light/45 p-8 rounded text-center max-w-sm space-y-4">
-                <div className="text-ochre text-5xl font-serif">☾</div>
-                <h3 className="font-serif font-bold text-ink text-lg">Calendario Lunar Kañari</h3>
-                <p className="text-xs text-earth-dark leading-relaxed">
-                  Basado en los tránsitos de la luna sobre las cimas de la cordillera. Marcaba con exactitud milimétrica el momento del deshierbe, la cosecha de la papa y el mulluyo de maíz.
+        {/* Tab Panels Content */}
+        <div className="bg-paper-dark border border-earth-light/30 rounded p-6 md:p-10 shadow-sm min-h-[400px]">
+          {/* Tab 1: Cosmovision */}
+          {activeTab === 'cosmovision' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="space-y-6">
+                <h2 className="text-2xl md:text-3xl font-bold font-serif text-ink">
+                  El Culto Lunar y la Serpiente Leoquina
+                </h2>
+                <div className="w-16 h-0.5 bg-ochre" />
+                <p className="text-sm md:text-base text-ink-light leading-relaxed">
+                  Antes de la hegemonía incaica, el universo mitológico Kañari giraba en torno a la divinidad de la <strong>Luna (Killa)</strong> y al elemento primordial del <strong>agua</strong>. A diferencia del sol (deidad de fuego y orden expansivo), la luna regía sus ciclos agrícolas, la maduración de las semillas y la sabiduría curativa femenina.
                 </p>
-                <div className="border-t border-earth-light/25 pt-3 flex justify-around text-[10px] uppercase font-bold tracking-wider text-earth">
-                  <span>Luna Nueva (Sowing)</span>
-                  <span>Luna Llena (Harvest)</span>
+                <p className="text-sm md:text-base text-ink-light leading-relaxed">
+                  Su geografía sagrada está salpicada de cumbres como el cerro Narrío y lagunas sagradas de páramo como <strong>Culebrillas</strong>. La laguna de Culebrillas es venerada como el lecho creador de la gran Serpiente <i>Leoquina</i>, madre biológica del linaje. La topografía montañosa y sinuosa del territorio era entendida por los sabios andinos como el cuerpo ondulante de esta serpiente cósmica.
+                </p>
+                <div className="p-4 bg-paper rounded border border-earth-light/40 flex items-center space-x-3 text-xs text-earth-dark">
+                  <Compass className="h-6 w-6 text-terracotta flex-shrink-0" />
+                  <span>
+                    <strong>Dato Arqueológico:</strong> En las orillas de la laguna de Culebrillas se han hallado cimientos ceremoniales de piedra de manufactura mixta Kañari e Inca, confirmando su rol de oráculo de peregrinación precolombino.
+                  </span>
+                </div>
+              </div>
+
+              {/* Graphic Illustration representation */}
+              <div className="flex justify-center">
+                <div className="bg-gradient-to-br from-ochre-light/20 to-terracotta/10 border-2 border-dashed border-earth-light/45 p-8 rounded text-center max-w-sm space-y-4">
+                  <div className="text-ochre text-5xl font-serif">☾</div>
+                  <h3 className="font-serif font-bold text-ink text-lg">Calendario Lunar Kañari</h3>
+                  <p className="text-xs text-earth-dark leading-relaxed">
+                    Basado en los tránsitos de la luna sobre las cimas de la cordillera. Marcaba con exactitud milimétrica el momento del deshierbe, la cosecha de la papa y el mulluyo de maíz.
+                  </p>
+                  <div className="border-t border-earth-light/25 pt-3 flex justify-around text-[10px] uppercase font-bold tracking-wider text-earth">
+                    <span>Luna Nueva (Sowing)</span>
+                    <span>Luna Llena (Harvest)</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Tab 2: Indumentaria */}
-        {activeTab === 'indumentaria' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Diagram Navigation Column */}
-            <div className="lg:col-span-5 space-y-3">
-              <h2 className="text-xl font-bold font-serif text-ink mb-4">
-                Elementos del Traje Ancestral
-              </h2>
-              <div className="flex flex-col space-y-2">
-                {Object.keys(clothingDetails).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => setSelectedClothing(key)}
-                    className={`p-3 rounded border text-left text-sm font-semibold uppercase tracking-wider transition-all ${
-                      selectedClothing === key
-                        ? 'border-terracotta bg-terracotta/10 text-terracotta font-bold'
-                        : 'border-earth-light/20 hover:border-ochre text-ink-light'
-                    }`}
+          {/* Tab 2: Indumentaria */}
+          {activeTab === 'indumentaria' && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Diagram Navigation Column */}
+              <div className="lg:col-span-5 space-y-3">
+                <h2 className="text-xl font-bold font-serif text-ink mb-4">
+                  Elementos del Traje Ancestral
+                </h2>
+                <div className="flex flex-col space-y-2">
+                  {Object.keys(clothingDetails).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => setSelectedClothing(key)}
+                      className={`p-3 rounded border text-left text-sm font-semibold uppercase tracking-wider transition-all ${
+                        selectedClothing === key
+                          ? 'border-terracotta bg-terracotta/10 text-terracotta font-bold'
+                          : 'border-earth-light/20 hover:border-ochre text-ink-light'
+                      }`}
+                    >
+                      {clothingDetails[key].title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Display Detail Card Column */}
+              <div className="lg:col-span-7 bg-paper border border-earth-light/40 p-6 rounded flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="inline-block bg-ochre/15 text-ochre px-3 py-1 rounded text-xs uppercase font-bold tracking-wider">
+                    Detalle de Vestimenta
+                  </div>
+                  <h3 className="text-2xl font-bold font-serif text-ink">
+                    {clothingDetails[selectedClothing].title}
+                  </h3>
+                  <p className="text-sm text-ink-light leading-relaxed">
+                    {clothingDetails[selectedClothing].desc}
+                  </p>
+                </div>
+
+                <div className="border-t border-earth-light/20 pt-4 mt-6">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-earth mb-1">
+                    Carga Simbólica y Cosmología:
+                  </span>
+                  <p className="text-xs italic text-terracotta font-medium">
+                    {clothingDetails[selectedClothing].symbol}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Saberes */}
+          {activeTab === 'saberes' && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Box 1 */}
+              <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-ink mb-2">La Chacra y Agricultura</h3>
+                  <p className="text-xs text-earth-dark leading-relaxed">
+                    La chacra es el espacio sagrado de cultivo biodiverso donde convive el maíz, el melloco, la oca, el frejol y la quinua. No es un mero terreno comercial, sino un ecosistema ritual donde se interactúa afectivamente con las plantas.
+                  </p>
+                </div>
+                <div className="text-xs font-bold text-ochre uppercase tracking-wider mt-4">
+                  Pachamama (Tierra Viva)
+                </div>
+              </div>
+
+              {/* Box 2 */}
+              <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-ink mb-2">La Minga Comunitaria</h3>
+                  <p className="text-xs text-earth-dark leading-relaxed">
+                    Institución social andina fundamental de trabajo colectivo obligatorio y recíproco. Se convoca para reparar acueductos, levantar escuelas, cosechar comunalmente o construir caminos. Al final de la jornada se comparte la chicha y la pampamesa.
+                  </p>
+                </div>
+                <div className="text-xs font-bold text-terracotta uppercase tracking-wider mt-4">
+                  Maki Mañachi (Apoyo Recíproco)
+                </div>
+              </div>
+
+              {/* Box 3 */}
+              <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-ink mb-2">Medicina y Partería</h3>
+                  <p className="text-xs text-earth-dark leading-relaxed">
+                    El uso de plantas medicinales nativas de páramo (como chuquiragua, valeriana, marco y ortiga) es clave. Los sanadores y parteras tradicionales (Jachis) gozan de gran prestigio político y espiritual en las comunas.
+                  </p>
+                </div>
+                <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider mt-4">
+                  Ranti Ranti (Reciprocidad)
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* NEW SECTION: Distribución Territorial del Pueblo Kañari */}
+      <section className="bg-paper border border-earth-light/35 rounded-2xl p-6 sm:p-8 md:p-12 shadow-md space-y-8">
+        {/* Section Header */}
+        <div className="space-y-4 max-w-3xl">
+          <div className="inline-flex items-center space-x-2 text-terracotta bg-terracotta/5 border border-terracotta/15 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+            <MapPin className="h-3.5 w-3.5" />
+            <span>Geografía Cultural y Comunitaria</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-serif text-ink tracking-tight">
+            Asentamientos y Territorio Ancestral Kañari
+          </h2>
+          <div className="w-20 h-1 bg-terracotta" />
+          <p className="text-sm md:text-base text-ink-light leading-relaxed">
+            La presencia histórico-cultural de la Nacionalidad Kichwa Kañari trasciende los límites provinciales modernos. Sus comunidades, comunas y parroquias rurales se despliegan activamente a través de valles, cuencas e interfluvios en las actuales provincias del <strong>Cañar</strong> y del <strong>Azuay</strong>.
+          </p>
+        </div>
+
+        {/* Responsive Filter Buttons */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-earth-light/20 pb-4">
+          <button
+            onClick={() => setActiveProvinceFilter('all')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+              activeProvinceFilter === 'all'
+                ? 'bg-terracotta text-paper shadow-sm'
+                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
+            }`}
+          >
+            Todas las Provincias (Cañar & Azuay)
+          </button>
+          <button
+            onClick={() => setActiveProvinceFilter('canar-prov')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+              activeProvinceFilter === 'canar-prov'
+                ? 'bg-terracotta text-paper shadow-sm'
+                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
+            }`}
+          >
+            Provincia del Cañar
+          </button>
+          <button
+            onClick={() => setActiveProvinceFilter('azuay-prov')}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+              activeProvinceFilter === 'azuay-prov'
+                ? 'bg-terracotta text-paper shadow-sm'
+                : 'bg-paper-dark border border-earth-light/30 text-earth hover:text-ink'
+            }`}
+          >
+            Provincia del Azuay
+          </button>
+        </div>
+
+        {/* 2-Column Responsive Grid of Provinces */}
+        <div className={`grid grid-cols-1 ${activeProvinceFilter === 'all' ? 'lg:grid-cols-2' : 'grid-cols-1'} gap-8`}>
+          {filteredProvinces.map((prov) => (
+            <div
+              key={prov.id}
+              className="bg-paper-dark border border-earth-light/40 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between"
+            >
+              {/* Province Card Top Banner */}
+              <div className="bg-gradient-to-r from-terracotta/10 via-ochre/5 to-transparent border-b border-earth-light/30 p-5 md:p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-terracotta bg-terracotta/10 border border-terracotta/20 px-2.5 py-1 rounded">
+                    Territorio Kañari
+                  </span>
+                  <span className="text-xs font-semibold text-earth">
+                    {prov.cantons.length} Cantones
+                  </span>
+                </div>
+                <h3 className="font-serif text-xl md:text-2xl font-bold text-ink">
+                  {prov.province}
+                </h3>
+                <p className="text-xs text-earth-dark mt-2 leading-relaxed">
+                  {prov.description}
+                </p>
+              </div>
+
+              {/* Cantons Grid list inside Province */}
+              <div className="p-5 md:p-6 space-y-4 flex-grow">
+                {prov.cantons.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-paper border border-earth-light/35 rounded-lg p-4 shadow-2xs hover:border-terracotta/40 transition-colors"
                   >
-                    {clothingDetails[key].title}
-                  </button>
+                    <div className="flex items-center space-x-2 mb-3">
+                      <Building2 className="h-4 w-4 text-terracotta" />
+                      <h4 className="font-serif font-bold text-base text-ink">
+                        Cantón {item.canton}
+                      </h4>
+                      <span className="text-[10px] font-semibold text-earth bg-paper-dark px-2 py-0.5 rounded border border-earth-light/20 ml-auto">
+                        {item.parroquias.length} {item.parroquias.length === 1 ? 'Parroquia' : 'Parroquias'}
+                      </span>
+                    </div>
+
+                    {/* Parroquias Badges */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.parroquias.map((parroquia, pIdx) => (
+                        <span
+                          key={pIdx}
+                          className="inline-flex items-center px-2.5 py-1 rounded text-xs font-medium bg-paper-dark text-ink-light border border-earth-light/30 hover:border-terracotta hover:text-terracotta hover:bg-terracotta/5 transition-all cursor-default"
+                        >
+                          <Map className="h-3 w-3 mr-1 text-ochre opacity-80" />
+                          {parroquia}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
 
-            {/* Display Detail Card Column */}
-            <div className="lg:col-span-7 bg-paper border border-earth-light/40 p-6 rounded flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="inline-block bg-ochre/15 text-ochre px-3 py-1 rounded text-xs uppercase font-bold tracking-wider">
-                  Detalle de Vestimenta
-                </div>
-                <h3 className="text-2xl font-bold font-serif text-ink">
-                  {clothingDetails[selectedClothing].title}
-                </h3>
-                <p className="text-sm text-ink-light leading-relaxed">
-                  {clothingDetails[selectedClothing].desc}
-                </p>
-              </div>
-
-              <div className="border-t border-earth-light/20 pt-4 mt-6">
-                <span className="block text-xs font-bold uppercase tracking-wider text-earth mb-1">
-                  Carga Simbólica y Cosmología:
-                </span>
-                <p className="text-xs italic text-terracotta font-medium">
-                  {clothingDetails[selectedClothing].symbol}
-                </p>
+              {/* Card Footer Note */}
+              <div className="bg-paper/50 border-t border-earth-light/20 px-5 py-3 text-[10px] text-earth flex items-center justify-between uppercase tracking-wider font-semibold">
+                <span>Presencia Histórica Comunitaria</span>
+                <span className="text-terracotta font-bold">Kañari</span>
               </div>
             </div>
-          </div>
-        )}
-
-        {/* Tab 3: Saberes */}
-        {activeTab === 'saberes' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Box 1 */}
-            <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-serif text-lg font-bold text-ink mb-2">La Chacra y Agricultura</h3>
-                <p className="text-xs text-earth-dark leading-relaxed">
-                  La chacra es el espacio sagrado de cultivo biodiverso donde convive el maíz, el melloco, la oca, el frejol y la quinua. No es un mero terreno comercial, sino un ecosistema ritual donde se interactúa afectivamente con las plantas.
-                </p>
-              </div>
-              <div className="text-xs font-bold text-ochre uppercase tracking-wider mt-4">
-                Pachamama (Tierra Viva)
-              </div>
-            </div>
-
-            {/* Box 2 */}
-            <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-serif text-lg font-bold text-ink mb-2">La Minga Comunitaria</h3>
-                <p className="text-xs text-earth-dark leading-relaxed">
-                  Institución social andina fundamental de trabajo colectivo obligatorio y recíproco. Se convoca para reparar acueductos, levantar escuelas, cosechar comunalmente o construir caminos. Al final de la jornada se comparte la chicha y la pampamesa.
-                </p>
-              </div>
-              <div className="text-xs font-bold text-terracotta uppercase tracking-wider mt-4">
-                Maki Mañachi (Apoyo Recíproco)
-              </div>
-            </div>
-
-            {/* Box 3 */}
-            <div className="bg-paper border border-earth-light/40 p-6 rounded shadow-sm flex flex-col justify-between">
-              <div>
-                <h3 className="font-serif text-lg font-bold text-ink mb-2">Medicina y Partería</h3>
-                <p className="text-xs text-earth-dark leading-relaxed">
-                  El uso de plantas medicinales nativas de páramo (como chuquiragua, valeriana, marco y ortiga) es clave. Los sanadores y parteras tradicionales (Jachis) gozan de gran prestigio político y espiritual en las comunas.
-                </p>
-              </div>
-              <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider mt-4">
-                Ranti Ranti (Reciprocidad)
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
