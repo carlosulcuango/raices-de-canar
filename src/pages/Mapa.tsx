@@ -14,17 +14,15 @@ export const Mapa: React.FC = () => {
     if (isHovered) return 'fill-ochre/40 stroke-ochre stroke-[2]';
 
     switch (id) {
-      case 'la-troncal':
-        return 'fill-emerald-800/15 stroke-emerald-850 stroke-[1.5]'; // Coastal warm zone
       case 'suscal':
       case 'el-tambo':
-        return 'fill-ochre/15 stroke-ochre/60 stroke-[1.5]'; // High transit zone
+        return 'fill-ochre/20 stroke-ochre/70 stroke-[1.5]'; // Northern transition zone
       case 'canar':
-        return 'fill-terracotta/10 stroke-terracotta/40 stroke-[1.5]'; // Core archeological zone
+        return 'fill-terracotta/15 stroke-terracotta/50 stroke-[1.5]'; // Core archeological zone
       case 'biblian':
       case 'azogues':
       case 'deleg':
-        return 'fill-earth-light/20 stroke-earth-light/60 stroke-[1.5]'; // Valley zone
+        return 'fill-earth-light/25 stroke-earth-light/70 stroke-[1.5]'; // Valley zone
       default:
         return 'fill-paper-dark stroke-earth-light/40 stroke-[1.5]';
     }
@@ -43,7 +41,7 @@ export const Mapa: React.FC = () => {
         </h1>
         <div className="w-24 h-1 bg-terracotta" />
         <p className="text-base text-ink-light leading-relaxed">
-          La provincia del Cañar cuenta con una peculiar geografía que desciende abruptamente desde los gélidos páramos andinos a más de 4000 metros de altitud, hasta las cálidas llanuras tropicales de la Costa a nivel del mar. Explora la división territorial de sus <strong>7 cantones</strong> haciendo clic en el mapa vectorial para desplegar información detallada sobre altitud, demografía, historia y sus atractivos turísticos más destacados.
+          La provincia del Cañar cuenta con una milenaria geografía andina que desciende desde los gélidos páramos del Parque Nacional Sangay a más de 4000 metros de altitud, hasta fértiles valles entremontanos. Explora la división territorial de sus <strong>6 cantones</strong> haciendo clic en el mapa vectorial para desplegar información detallada sobre altitud, demografía, historia y sus atractivos turísticos más destacados.
         </p>
       </div>
 
@@ -64,7 +62,7 @@ export const Mapa: React.FC = () => {
             <div className="w-full flex justify-center py-4">
               <svg
                 viewBox="0 0 500 400"
-                className="w-full max-w-[420px] h-auto drop-shadow-md select-none"
+                className="w-full max-w-[440px] h-auto drop-shadow-md select-none"
               >
                 {/* Background grid representation */}
                 <g className="opacity-[0.05] stroke-ink stroke-[0.5] fill-none">
@@ -73,22 +71,9 @@ export const Mapa: React.FC = () => {
                 </g>
 
                 {/* SVG Canton Paths */}
-                {/* 1. La Troncal (Coastal plain, far west) */}
+                {/* 1. Suscal (North-West node) */}
                 <path
-                  d="M 20 180 L 100 170 L 90 230 L 70 270 L 10 260 Z"
-                  className={`transition-all duration-300 cursor-pointer ${getCantonColor(
-                    'la-troncal',
-                    selectedCanton.id === 'la-troncal',
-                    hoveredCanton === 'la-troncal'
-                  )}`}
-                  onClick={() => setSelectedCanton(CANTONS_DATA.find(c => c.id === 'la-troncal')!)}
-                  onMouseEnter={() => setHoveredCanton('la-troncal')}
-                  onMouseLeave={() => setHoveredCanton(null)}
-                />
-                
-                {/* 2. Suscal (Narrow transit area) */}
-                <path
-                  d="M 100 170 L 170 140 L 180 180 L 120 220 L 90 230 Z"
+                  d="M 50 140 L 160 110 L 175 170 L 95 200 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'suscal',
                     selectedCanton.id === 'suscal',
@@ -99,9 +84,9 @@ export const Mapa: React.FC = () => {
                   onMouseLeave={() => setHoveredCanton(null)}
                 />
 
-                {/* 3. El Tambo (Center-north small node) */}
+                {/* 2. El Tambo (North-Center transit hub) */}
                 <path
-                  d="M 170 140 L 230 110 L 240 150 L 195 180 Z"
+                  d="M 160 110 L 255 80 L 265 145 L 175 170 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'el-tambo',
                     selectedCanton.id === 'el-tambo',
@@ -112,9 +97,9 @@ export const Mapa: React.FC = () => {
                   onMouseLeave={() => setHoveredCanton(null)}
                 />
 
-                {/* 4. Cañar (Huge north-east highlands) */}
+                {/* 3. Cañar (North-East archetype & highlands) */}
                 <path
-                  d="M 170 140 L 230 110 L 320 60 L 400 90 L 410 140 L 340 180 L 260 210 L 240 150 Z"
+                  d="M 255 80 L 435 40 L 455 125 L 375 185 L 285 205 L 265 145 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'canar',
                     selectedCanton.id === 'canar',
@@ -125,9 +110,9 @@ export const Mapa: React.FC = () => {
                   onMouseLeave={() => setHoveredCanton(null)}
                 />
 
-                {/* 5. Biblián (Central slice) */}
+                {/* 4. Biblián (Central core) */}
                 <path
-                  d="M 260 210 L 340 180 L 360 230 L 290 270 L 250 250 L 230 220 Z"
+                  d="M 175 170 L 285 205 L 315 265 L 245 285 L 185 235 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'biblian',
                     selectedCanton.id === 'biblian',
@@ -138,9 +123,9 @@ export const Mapa: React.FC = () => {
                   onMouseLeave={() => setHoveredCanton(null)}
                 />
 
-                {/* 6. Azogues (South-east capital area) */}
+                {/* 5. Azogues (South-East provincial capital) */}
                 <path
-                  d="M 340 180 L 410 140 L 480 190 L 450 310 L 390 320 L 360 230 Z"
+                  d="M 285 205 L 375 185 L 465 215 L 435 335 L 345 335 L 315 265 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'azogues',
                     selectedCanton.id === 'azogues',
@@ -151,9 +136,9 @@ export const Mapa: React.FC = () => {
                   onMouseLeave={() => setHoveredCanton(null)}
                 />
 
-                {/* 7. Déleg (Small far south tip) */}
+                {/* 6. Déleg (South-West ancestral canton) */}
                 <path
-                  d="M 290 270 L 360 230 L 390 320 L 340 350 L 280 320 Z"
+                  d="M 185 235 L 315 265 L 345 335 L 275 365 L 195 315 Z"
                   className={`transition-all duration-300 cursor-pointer ${getCantonColor(
                     'deleg',
                     selectedCanton.id === 'deleg',
@@ -166,27 +151,26 @@ export const Mapa: React.FC = () => {
 
                 {/* Typography Labels on top of Map */}
                 <g className="fill-ink font-sans font-bold text-[9px] pointer-events-none text-center select-none uppercase tracking-wider">
-                  <text x="50" y="215" className="fill-emerald-800">La Troncal</text>
-                  <text x="125" y="195" className="fill-ochre-dark">Suscal</text>
-                  <text x="180" y="155" className="fill-ochre-dark">Tambo</text>
-                  <text x="310" y="120" className="fill-terracotta">Cañar</text>
-                  <text x="285" y="235" className="fill-earth-dark">Biblián</text>
-                  <text x="390" y="215" className="fill-earth-dark">Azogues</text>
-                  <text x="315" y="295" className="fill-earth-dark">Déleg</text>
+                  <text x="110" y="155" className="fill-ochre-dark">Suscal</text>
+                  <text x="210" y="130" className="fill-ochre-dark">El Tambo</text>
+                  <text x="350" y="115" className="fill-terracotta">Cañar</text>
+                  <text x="240" y="225" className="fill-earth-dark">Biblián</text>
+                  <text x="380" y="260" className="fill-earth-dark">Azogues</text>
+                  <text x="260" y="315" className="fill-earth-dark">Déleg</text>
                 </g>
               </svg>
             </div>
           </div>
 
           {/* Quick instructions text */}
-          <div className="pt-4 border-t border-earth-light/20 text-xs text-earth flex items-center space-x-1.5 justify-center">
-            <span>Zonificación ecológica:</span>
-            <span className="inline-block w-2.5 h-2.5 bg-emerald-700/20 border border-emerald-800 rounded-sm" />
-            <span>Tropical</span>
-            <span className="inline-block w-2.5 h-2.5 bg-terracotta/20 border border-terracotta/40 rounded-sm" />
-            <span>Páramo</span>
-            <span className="inline-block w-2.5 h-2.5 bg-earth-light/20 border border-earth-light/60 rounded-sm" />
-            <span>Valles y Yungas</span>
+          <div className="pt-4 border-t border-earth-light/20 text-xs text-earth flex items-center space-x-2 justify-center">
+            <span>Zonificación geográfica:</span>
+            <span className="inline-block w-2.5 h-2.5 bg-terracotta/30 border border-terracotta/60 rounded-sm" />
+            <span>Páramo & Arqueología</span>
+            <span className="inline-block w-2.5 h-2.5 bg-ochre/30 border border-ochre/70 rounded-sm" />
+            <span>Nodo Transitivo</span>
+            <span className="inline-block w-2.5 h-2.5 bg-earth-light/30 border border-earth-light/70 rounded-sm" />
+            <span>Valles Interandinos</span>
           </div>
         </div>
 

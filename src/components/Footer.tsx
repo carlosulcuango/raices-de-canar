@@ -194,7 +194,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
           <div className="mt-4 md:mt-0 flex space-x-4">
-            <span>Azogues · Cañar · Biblián · El Tambo · Déleg · Suscal · La Troncal</span>
+            <span>Azogues · Cañar · Biblián · El Tambo · Déleg · Suscal</span>
           </div>
         </div>
       </div>

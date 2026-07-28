@@ -110,73 +110,55 @@ export const CANTONS_DATA: Canton[] = [
     id: 'el-tambo',
     name: 'El Tambo',
     capital: 'El Tambo',
-    population: '11,000 hab. aprox.',
+    population: '11,500 hab. aprox.',
     elevation: '2,980 m.s.n.m.',
-    climate: '10°C - 14°C (Templado frío)',
-    description: 'Histórica estación de descanso en el Camino del Inca (Qhapaq Ñan). Portal arqueológico y ferroviario clave en el norte de Cañar.',
-    history: 'Su nombre hace alusión a los "tambos" o posadas construidas a lo largo de las calzadas andinas para el descanso de chasquis y ejércitos imperiales. Conserva vestigios de la arquitectura de piedra original.',
+    climate: '10°C - 15°C (Templado frío andino)',
+    description: 'Histórico nodo del Qhapaq Ñan (Camino del Inca) y estación de descanso prehispánica. Destaca por el Complejo Arqueológico Coyoctor y sus baños rituales tallados en piedra.',
+    history: 'Su nombre proviene del vocablo Kichwa "Tampu", refiriéndose a las posadas ceremoniales e imperiales construidas a lo largo de las calzadas andinas para el descanso de los chasquis y la comitiva del Inca. Conserva infraestructura de piedra viva y patrimonio ferroviario.',
     attractions: [
-      'Complejo Arqueológico de Coyoctor (Baños del Inca)',
-      'Ferrocarril Histórico (Ruta Tambo-Ingapirca)',
-      'Iglesia de San Juan Bautista',
-      'Páramos de Angas'
+      'Complejo Arqueológico Coyoctor (Baños del Inca)',
+      'Silla del Inca y altares rituales labrados en piedra',
+      'Iglesia San Juan Bautista y centro histórico de piedra',
+      'Estación del Ferrocarril Histórico e itinerario andino'
     ],
-    mapPath: 'M 80 80 L 100 80 L 90 100 L 120 120 L 100 130 L 70 100 Z',
-    imageUrl: 'https://images.unsplash.com/photo-1584967918940-a7d51b06427b?q=80&w=800'
+    mapPath: 'M 150 110 L 250 80 L 260 140 L 170 170 Z',
+    imageUrl: '/images/tambo.jpg'
   },
   {
     id: 'deleg',
     name: 'Déleg',
     capital: 'Déleg',
-    population: '6,500 hab. aprox.',
+    population: '7,000 hab. aprox.',
     elevation: '2,650 m.s.n.m.',
-    climate: '12°C - 17°C (Templado)',
-    description: 'El cantón más pequeño de la provincia, caracterizado por sus verdes colinas y por ser la cuna del ex-Presidente Luis Cordero Crespo.',
-    history: 'Hogar ancestral de tribus kañaris aliadas a la dinastía Hatun Cañar. Destaca por mantener vivas las técnicas alfareras y de tejido precolombino.',
+    climate: '12°C - 17°C (Templado semicálido)',
+    description: 'Considerado el cantón más antiguo y cuna de ilustres personajes como Luis Cordero Crespo. Famoso por sus paisajes verdes, la laguna de Guabizhún y tradiciones artesanales.',
+    history: 'Poblado por comunidades Kañaris precolombinas expertas en alfarería y medicina natural. Con la colonia se convirtió en una próspera zona agrícola y ganadera que mantiene sus tradiciones andinas intactas.',
     attractions: [
-      'Laguna de Guabizhún',
-      'Parroquia Solano (Arquitectura rural clásica)',
-      'Casa Histórica de Luis Cordero Crespo',
-      'Mirador de Cojitambo occidental'
+      'Laguna mística de Guabizhún',
+      'Parroquia rural Solano y arquitectura colonial',
+      'Casa Histórica del ex-Presidente Luis Cordero',
+      'Mirador natural de Surampalti y senderos ecológicos'
     ],
-    mapPath: 'M 130 180 L 140 180 L 160 140 L 130 150 Z',
-    imageUrl: 'https://images.unsplash.com/photo-1500627869374-13cd993b1115?q=80&w=800'
+    mapPath: 'M 180 230 L 310 260 L 340 330 L 270 360 L 190 310 Z',
+    imageUrl: '/images/Deleg.jpg'
   },
   {
     id: 'suscal',
     name: 'Suscal',
     capital: 'Suscal',
-    population: '6,000 hab. aprox.',
+    population: '6,200 hab. aprox.',
     elevation: '2,700 m.s.n.m.',
-    climate: '11°C - 15°C (Templado húmedo)',
-    description: 'Territorio de rica herencia Kichwa y exuberante vegetación andino-tropical. Famoso por su agricultura ecológica y medicina ancestral.',
-    history: 'Originalmente un punto de control y paso de caravanas de trueque entre la Costa cálida y la Sierra andina. Posee una de las comunidades de tejedores más antiguas de la región.',
+    climate: '11°C - 16°C (Templado húmedo)',
+    description: 'Enclave de profunda identidad Kichwa Kañari, rodeado por valles y páramos fértiles. Reconocido por la conservación del telar de cintura y medicina ancestral.',
+    history: 'Históricamente sirvió como punto neurálgico de intercambio entre los páramos andinos del Cañar y los valles subtropicales. Sus tejedores conservan los diseños ancestrales en fajas (chumbis) y ponchos.',
     attractions: [
-      'Páramos de Chontamarca y Suscal',
-      'Cascadas y senderos naturales de Suscal',
-      'Feria de Medicina Ancestral y Huertos Orgánicos',
-      'Telas andinas tejidas en telar de cintura'
+      'Páramos y vertientes sagradas de Suscal',
+      'Talleres comunitarios de telar de cintura Kañari',
+      'Huertos medicinales y saberes de sanación andina',
+      'Ruta de las Cascadas y biodiversidad andina'
     ],
-    mapPath: 'M 50 60 L 80 80 L 70 100 L 40 90 L 30 70 Z',
-    imageUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800'
-  },
-  {
-    id: 'la-troncal',
-    name: 'La Troncal',
-    capital: 'La Troncal',
-    population: '60,000 hab. aprox.',
-    elevation: '110 m.s.n.m.',
-    climate: '22°C - 30°C (Cálido tropical)',
-    description: 'El motor agroindustrial de la provincia en la llanura costera. Famoso por sus plantaciones de caña de azúcar, cacao y sus ríos subtropicales.',
-    history: 'A diferencia de los otros seis cantones andinos, La Troncal se encuentra al pie de la cordillera. Nació y creció en torno al ingenio azucarero Aztra (hoy Coazúcar) y las migraciones del siglo XX.',
-    attractions: [
-      'Balnearios y parques acuáticos térmicos',
-      'Río Cañar y senderos de selva húmeda',
-      'Ruta del Azúcar (Recorridos por cañaverales)',
-      'Gastronomía costeña (Seco de gallina, mariscos)'
-    ],
-    mapPath: 'M 10 30 L 50 60 L 30 70 L 40 90 L 10 60 Z',
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800'
+    mapPath: 'M 40 140 L 150 110 L 170 170 L 90 200 Z',
+    imageUrl: '/images/suscal.jpg'
   }
 ];
 
