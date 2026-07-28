@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Compass, UtensilsCrossed, CalendarDays, BookOpen, Map, ArrowRight } from 'lucide-react';
+import { ShieldAlert, Compass, UtensilsCrossed, CalendarDays, BookOpen, Map, ArrowRight, Sparkles } from 'lucide-react';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -9,47 +9,66 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <div className="animate-fade-in">
       {/* Editorial Hero Section */}
-      <section
-        style={{ backgroundImage: "url('/images/inicio.jpg')" }}
-        className="bg-cover bg-center bg-no-repeat min-h-screen md:min-h-[600px] h-screen md:h-[92vh] relative flex flex-col items-center justify-center border-b border-earth-light/25"
-      >
-        {/* Subtle overlay for image clarity and button legibility */}
-        <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
+      <section className="relative min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden border-b border-earth-light/25 pt-20 pb-12">
+        {/* Background Image using img tag for maximum responsiveness & performance */}
+        <img
+          src="/images/inicio.jpg"
+          alt="Patrimonio de Cañar"
+          className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000"
+          loading="eager"
+        />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-12 p-6 sm:p-12 md:p-24">
-          {/* Top cultural tag / Subtitle */}
-          <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold uppercase tracking-widest text-paper-light leading-relaxed max-w-2xl mx-auto">
-            Documental Interactivo Patrimonio de Cañar
-          </h2>
+        {/* Multi-layered responsive dark gradient overlays for maximum text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/75 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/25 to-black/70 pointer-events-none" />
 
-          {/* Fluid title main text */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif tracking-tight text-paper leading-[1.1] text-balance">
-            Raíces de Cañar
-          </h1>
+        <div className="max-w-4xl mx-auto text-center relative z-10 px-4 sm:px-6 md:px-8 py-10 md:py-16 my-auto">
+          <div className="bg-black/40 backdrop-blur-md border border-white/15 p-6 sm:p-10 md:p-14 rounded-3xl shadow-2xl space-y-6 sm:space-y-8 animate-fade-in">
+            {/* Top cultural tag / Subtitle */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-terracotta/90 text-paper border border-terracotta-light/40 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-md mx-auto">
+              <Sparkles className="h-3.5 w-3.5 text-ochre-light animate-pulse" />
+              <span>Documental Interactivo Patrimonio de Cañar</span>
+            </div>
 
-          {/* Action buttons with responsive width */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button
-              onClick={() => onNavigate('/pueblos-nacionalidades')}
-              className="w-full sm:w-auto px-8 py-3 bg-terracotta hover:bg-terracotta-dark text-paper font-semibold rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
-            >
-              <span>Explorar el Legado</span>
-              <BookOpen className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => onNavigate('/mapa')}
-              className="w-full sm:w-auto px-8 py-3 bg-paper-light border border-earth-light/50 hover:border-terracotta text-ink hover:text-terracotta font-semibold rounded shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center space-x-2"
-            >
-              <span>Mapa de Cantones</span>
-              <Map className="h-4 w-4" />
-            </button>
+            {/* Fluid title main text */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-serif tracking-tight text-paper leading-[1.08] drop-shadow-md text-balance">
+              Raíces de Cañar
+            </h1>
+
+            {/* Cultural description */}
+            <p className="text-sm sm:text-base md:text-lg text-paper-light/95 max-w-2xl mx-auto leading-relaxed font-sans font-normal text-balance">
+              Explora la historia viva, la sabiduría milenaria Kichwa Kañari, la riqueza arqueológica y los majestuosos paisajes andinos de la provincia.
+            </p>
+
+            {/* Action buttons with responsive width */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-4">
+              <button
+                onClick={() => onNavigate('/pueblos-nacionalidades')}
+                className="w-full sm:w-auto px-8 py-3.5 bg-terracotta hover:bg-terracotta-dark text-paper font-bold rounded-xl shadow-lg hover:shadow-terracotta/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center space-x-2.5 text-xs sm:text-sm uppercase tracking-wider group"
+              >
+                <span>Explorar el Legado</span>
+                <BookOpen className="h-4 w-4 group-hover:rotate-6 transition-transform" />
+              </button>
+              <button
+                onClick={() => onNavigate('/mapa')}
+                className="w-full sm:w-auto px-8 py-3.5 bg-paper/15 backdrop-blur-sm border border-paper/30 hover:bg-paper hover:text-ink text-paper font-bold rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center space-x-2.5 text-xs sm:text-sm uppercase tracking-wider"
+              >
+                <span>Mapa de Cantones</span>
+                <Map className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs text-paper/85 uppercase tracking-widest animate-bounce mt-6 sm:mt-12">
-          <span className="mb-2">Descubrir</span>
-          <div className="w-1 h-8 bg-terracotta/80 rounded" />
+        <div
+          onClick={() => {
+            window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+          }}
+          className="relative z-10 mt-4 flex flex-col items-center text-[10px] sm:text-xs text-paper/90 uppercase tracking-widest animate-bounce cursor-pointer group"
+        >
+          <span className="mb-1.5 group-hover:text-terracotta-light transition-colors font-semibold">Descubrir</span>
+          <div className="w-1 h-7 sm:h-9 bg-terracotta/90 rounded-full shadow-sm" />
         </div>
       </section>
 

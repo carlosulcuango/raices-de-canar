@@ -38,12 +38,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const isHome = currentPath === '/';
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-paper/95 backdrop-blur-md shadow-md border-b border-earth-light/20 py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-paper/95 backdrop-blur-md shadow-md border-b border-earth-light/20 py-3 text-ink'
+          : isHome
+          ? 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 text-paper'
+          : 'bg-paper/90 backdrop-blur-md border-b border-earth-light/20 py-4 text-ink'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,14 +57,24 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             onClick={() => handleLinkClick('/')}
             className="flex items-center space-x-3 cursor-pointer group"
           >
-            <div className="bg-terracotta text-paper p-2 rounded-full transition-transform duration-300 group-hover:rotate-12">
+            <div className="bg-terracotta text-paper p-2 rounded-full transition-transform duration-300 group-hover:rotate-12 shadow-sm">
               <Landmark className="h-5 w-5" />
             </div>
             <div>
-              <span className="block font-serif text-lg md:text-xl font-bold tracking-tight text-ink group-hover:text-terracotta transition-colors duration-200">
+              <span
+                className={`block font-serif text-lg md:text-xl font-bold tracking-tight transition-colors duration-200 ${
+                  !isScrolled && isHome
+                    ? 'text-paper group-hover:text-ochre-light'
+                    : 'text-ink group-hover:text-terracotta'
+                }`}
+              >
                 Raíces de Cañar
               </span>
-              <span className="block text-[10px] tracking-[0.2em] uppercase font-sans text-earth">
+              <span
+                className={`block text-[10px] tracking-[0.2em] uppercase font-sans ${
+                  !isScrolled && isHome ? 'text-paper-dark/80' : 'text-earth'
+                }`}
+              >
                 Patrimonio & Cultura
               </span>
             </div>
@@ -76,7 +90,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                   onClick={() => handleLinkClick(item.path)}
                   className={`px-3 py-2 rounded-md text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-200 ${
                     isActive
-                      ? 'text-terracotta bg-terracotta/5 border-b-2 border-terracotta rounded-b-none'
+                      ? 'text-terracotta bg-terracotta/10 border-b-2 border-terracotta rounded-b-none'
+                      : !isScrolled && isHome
+                      ? 'text-paper/90 hover:text-ochre-light hover:bg-white/10'
                       : 'text-ink-light hover:text-terracotta hover:bg-earth-light/5'
                   }`}
                 >
@@ -87,7 +103,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           </nav>
 
           {/* Audio/Theme Toggle or Cultural Note widget */}
-          <div className="hidden lg:flex items-center space-x-2 text-xs border border-earth-light/30 px-3 py-1.5 rounded-full text-earth">
+          <div
+            className={`hidden lg:flex items-center space-x-2 text-xs border px-3 py-1.5 rounded-full ${
+              !isScrolled && isHome
+                ? 'border-paper/30 text-paper-light bg-black/20 backdrop-blur-xs'
+                : 'border-earth-light/30 text-earth'
+            }`}
+          >
             <Globe2 className="h-3.5 w-3.5 text-ochre" />
             <span className="font-semibold uppercase tracking-wider">Kichwa Kañari / Esp</span>
           </div>
@@ -96,7 +118,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-ink hover:text-terracotta p-1 focus:outline-none"
+              className={`p-1.5 rounded-lg focus:outline-none transition-colors ${
+                !isScrolled && isHome
+                  ? 'text-paper hover:bg-white/10'
+                  : 'text-ink hover:text-terracotta hover:bg-earth-light/10'
+              }`}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
